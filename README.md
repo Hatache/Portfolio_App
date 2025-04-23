@@ -5,10 +5,10 @@ This personal portfolio project was built using Django, a Python web framework. 
 
 <h3>Features</h3>
 
-=> A responsive and visually appealing design
-=> A projects section that displays my recent works, including images, descriptions, and links to live demos and code repositories
-=> A get in touch section that allows visitors to contact me
-=> A backend administration panel for managing projects and other content
+=> A responsive and visually appealing design<br>
+=> A projects section that displays my recent works, including images, descriptions, and links to live demos and code repositories.<br>
+=> A get in touch section that allows visitors to contact me.<br>
+=> A backend administration panel for managing projects and other content.<br>
 
 Technologies Used
 <ol>
