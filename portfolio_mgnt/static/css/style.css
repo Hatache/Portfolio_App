@@ -1,0 +1,840 @@
+/* Base theme colors */
+:root {
+    --primary-color: #1a2a47;
+    --secondary-color: #6c757d;
+    --accent-color: #ded8e9;
+    --dark-color: #35373a;
+    --light-color: #f5f5f5;
+    /* Light mode variables */
+    --background-color: #ffffff;
+    --text-color: #333333;
+    --card-bg: #ffffff;
+    --navbar-bg: #182247;
+    --section-bg: #ffffff;
+    --primary-bg: #ffffff;
+    --text-secondary: #b3b3b3;
+    --section-light: #f8f9fa;
+    --section-dark: #ffffff;
+    --border-color: #dee2e6;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+    --primary-bg:   #1b1a1a  ;
+    --text-color: #ffffff;
+    --section-light: #1e1e1e;
+    --section-dark: #242424;
+    --card-bg: #2d2d2d;
+    --navbar-bg: #1b1a1a;
+    --border-color: #000000;
+    --primary-color: #2d2d2d;
+    --secondary-color: #6c757d;
+    --accent-color: #4a9eff;
+    --dark-color: #35373a;
+    --light-color: #f5f5f5;
+    --background-color: #1a1a1a;
+    --text-secondary: #b3b3b3;
+    --section-bg: #242424;
+}
+
+/* Global styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--text-color);
+    background-color: var(--primary-bg);
+    transition: all 0.3s ease;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Section backgrounds */
+section {
+    transition: all 0.3s ease;
+}
+
+section:nth-child(odd) {
+    background-color: var(--section-light);
+}
+
+section:nth-child(even) {
+    background-color: var(--section-dark);
+}
+
+/* Card styles */
+.card, .project-card {
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+/* Navbar base styles */
+.navbar {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: var(--navbar-bg);
+}
+
+/* Dark mode navbar */
+[data-theme="dark"] .navbar {
+    background-color: #1b1a1a !important;
+    margin: 0;
+    /* width: 100%; */
+}
+
+[data-theme="dark"] .navbar-collapse {
+    background-color: #1b1a1a;
+}
+
+/* Container styles */
+.navbar > .container {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 2rem;
+    margin: 0;
+}
+
+/* Mobile styles */
+@media (max-width: 991px) {
+    .navbar {
+        width: 100%;
+        padding: 0;
+    }
+
+    .navbar > .container {
+        position: relative;
+        justify-content: space-between;
+        padding: 1rem 2rem;
+        background-color: inherit;
+        width: 100%;
+    }
+
+    .navbar-collapse {
+        width: 100%;
+        margin-top: 1rem;
+        padding: 1rem 0;
+    }
+
+    [data-theme="dark"] .navbar,
+    [data-theme="dark"] .navbar-collapse,
+    [data-theme="dark"] .navbar > .container {
+        background-color:  #1b1a1a ;
+    }
+}
+
+/* Remove any max-width constraints */
+@media (min-width: 992px) {
+    .container {
+        max-width: 100%;
+    }
+}
+
+/* Skills section */
+.skill-item {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    /* Add white border */
+    border: 2px solid #ffffff;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .skill-item {
+    border-color: rgba(255, 255, 255, 0.2); /* Softer white border in dark mode */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); /* Subtle glow effect */
+}
+
+/* Hover effect */
+.skill-item:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Progress bar container */
+.skill-item .progress {
+    background-color: rgba(255, 255, 255, 0.1);
+    height: 8px;
+    border-radius: 4px;
+}
+
+/* Progress bar */
+.skill-item .progress-bar {
+    border-radius: 4px;
+}
+
+/* Skill title */
+.skill-item h4 {
+    margin: 1rem 0;
+    font-weight: 600;
+}
+
+/* Icon styling */
+.skill-item i {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Timeline */
+.timeline::before {
+    background-color: var(--border-color);
+}
+
+/* Form elements */
+input, textarea, .form-control {
+    background-color: var(--card-bg) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+input::placeholder, textarea::placeholder {
+    color: var(--text-color) !important;
+    opacity: 0.7;
+}
+
+/* Buttons */
+[data-theme="dark"] .btn-light {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    border-color: var(--border-color);
+}
+
+[data-theme="dark"] .btn-outline-light {
+    border-color: var(--text-color);
+    color: var(--text-color);
+}
+
+/* Progress bars */
+[data-theme="dark"] .progress {
+    background-color: var(--section-dark);
+}
+
+/* Footer styles - initial light mode color */
+footer.footer {
+    background-color: #182247 !important;
+    color: #ffffff;
+    padding: 2rem 0;
+    width: 100%;
+    border-top: 1px solid #ffffff;
+}
+
+/* Dark mode footer - darker color */
+[data-theme="dark"] footer.footer {
+    background-color: #1b1a1a !important;
+}
+
+/* Social media links */
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin: 0 15px;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    background: none !important;
+}
+
+/* Social media icons */
+.social-links a i {
+    font-size: 1.2rem;
+}
+
+/* Hover effect */
+.social-links a:hover {
+    transform: translateY(-3px);
+    color: var(--accent-color) !important;
+    background: none !important;
+}
+
+/* Remove any remaining background colors */
+.social-links a,
+[data-theme="dark"] .social-links a,
+.social-links a:hover,
+[data-theme="dark"] .social-links a:hover {
+    background: none !important;
+    background-color: transparent !important;
+}
+
+/* Footer content colors */
+footer.footer a,
+footer.footer span,
+footer.footer i,
+footer.footer p {
+    color: #ffffff !important;
+}
+
+/* Text colors */
+[data-theme="dark"] .text-muted {
+    color: #b3b3b3 !important;
+}
+
+[data-theme="dark"] .lead {
+    color: var(--text-color);
+}
+
+/* Hero section specific */
+.hero-section {
+    background: linear-gradient(135deg, var(--navbar-bg), var(--section-dark));
+    color: white;
+    padding: 8rem 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: 0;
+    background: url('/api/placeholder/1200/800') center center;
+    opacity: 0.1;
+    animation: rotate 60s linear infinite;
+}
+/* 
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} */
+
+.section-title {
+    position: relative;
+    margin-bottom: 3rem;
+    font-weight: 700;
+}
+
+.section-title::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 4px;
+    background-color: var(--accent-color);
+    bottom: -10px;
+    left: 0;
+}
+
+/* Project card styles */
+.project-card {
+    border: none !important; /* Remove border */
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    height: 100%;
+    background-color: var(--card-bg);
+}
+
+/* Dark mode project card */
+[data-theme="dark"] .project-card {
+    border: none !important; /* Ensure border is removed in dark mode */
+    background-color: var(--card-bg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+/* Hover effect without border */
+.project-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+[data-theme="dark"] .project-card:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.project-card img {
+    height: 200px;
+    object-fit: cover;
+}
+
+.skill-item {
+    background-color: var(--card-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.skill-item:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.skill-item i {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 2rem;
+}
+
+.timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -2.35rem;
+    top: 0.5rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    border: 4px solid var(--primary-color);
+}
+
+.contact-info i {
+    width: 30px;
+}
+
+.navbar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.8) !important;
+    padding: 0.6rem 1.2rem;
+    margin: 0 0.4rem;
+    position: relative;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    border-radius: 25px;
+    border: 1px solid transparent;
+}
+
+/* Underline hover effect */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: #ffffff;
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+}
+
+/* Hover effect - only underline */
+.navbar-nav .nav-link:hover {
+    color: #ffffff !important;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 60%;
+}
+
+/* Active state - rounded rectangle */
+.navbar-nav .nav-link.active {
+    color: #ffffff !important;
+    border-color: var(--accent-color);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Remove underline for active state when hovering */
+.navbar-nav .nav-link.active::after {
+    display: none;
+}
+
+/* Add this animation for the shimmer effect */
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+/* Add pulsing animation for active link */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 20px rgba(157, 153, 167, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(157, 153, 167, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 20px  rgba(157, 153, 167, 0.5);
+    }
+}
+
+.navbar-nav .nav-link.active {
+    animation: pulse 1s ;
+}
+
+/* Dark Mode Toggle Styling */
+.dark-mode-wrapper {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+}
+
+#darkModeToggle {
+    width: 40px;
+    height: 40px;
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+    border-radius: 50%;
+    background: transparent;
+}
+
+#darkModeToggle:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+#darkModeToggle i {
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+/* About Section */
+[data-theme="dark"] #about {
+    background-color: var(--primary-bg);
+}
+
+[data-theme="dark"] #about .card {
+    background-color: var(--secondary-bg);
+    border-color: var(--border-color);
+}
+
+/* Projects Section */
+#projects {
+    background-color: var(--section-light);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] #projects {
+    background-color: var(--section-dark);
+    color: #ffffff;
+}
+
+[data-theme="dark"] .project-card {
+    background-color: var(--card-bg);
+    color: #ffffff;
+}
+
+[data-theme="dark"] .card-title,
+[data-theme="dark"] .card-text {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .badge.bg-secondary {
+    background-color: #201f1f !important;
+    color: #ffffff;
+}
+
+/* Skills Section */
+[data-theme="dark"] #skills {
+    background-color: var(--primary-bg);
+}
+
+[data-theme="dark"] .skill-item {
+    background-color: var(--secondary-bg);
+    color: var(--text-color);
+}
+
+/* Experience Section */
+#experience {
+    background-color: var(--section-light);
+    transition: all 0.3s ease;
+}
+
+[data-theme="dark"] #experience {
+    background-color: var(--section-dark);
+    color: #ffffff;
+}
+
+[data-theme="dark"] .timeline-item h5,
+[data-theme="dark"] .timeline-item p {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .text-muted {
+    color: #b3b3b3 !important;
+}
+
+[data-theme="dark"] .section-title {
+    color: #ffffff;
+}
+
+/* Contact Section */
+[data-theme="dark"] #contact {
+    background-color: var(--primary-bg);
+}
+
+[data-theme="dark"] #contact .card {
+    background-color: var(--secondary-bg);
+    border-color: var(--border-color);
+}
+
+/* Form elements in dark mode */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea {
+    background-color: black;
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+/* Buttons in dark mode */
+[data-theme="dark"] .btn-outline-secondary {
+    color: #ffffff;
+    border-color: #ffffff;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #ffffff;
+    color: var(--section-dark);
+}
+
+[data-theme="dark"] .btn-primary {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* Text colors in dark mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6 {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .text-muted {
+    color: var(--text-secondary) !important;
+}
+
+/* Progress bars in dark mode */
+[data-theme="dark"] .progress {
+    background-color: var(--primary-bg);
+}
+
+/* Form input styles */
+.form-control {
+    position: relative;
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Clear any floating labels or overlays */
+.form-control-placeholder,
+.form-control-label,
+.floating-label {
+    display: none !important;
+}
+
+/* Style the actual placeholder */
+.form-control::placeholder {
+    opacity: 1 !important;
+    color: #666 !important;
+    /* Prevent double text */
+    position: static !important;
+    transform: none !important;
+}
+
+/* Remove any pseudo elements */
+.form-control:before,
+.form-control:after,
+.form-group:before,
+.form-group:after {
+    content: none !important;
+    display: none !important;
+}
+
+/* Ensure label doesn't overlap */
+label {
+    display: none !important;
+}
+
+/* Dark mode adjustments */
+[data-theme="dark"] .form-control {
+    background-color: #2d2d2d !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .form-control::placeholder {
+    color: #888 !important;
+}
+
+/* Container for the form */
+.contact-form-container {
+    width: 90%;  /* Takes 90% of the available width */
+    max-width: 1200px;  /* Maximum width */
+    margin: 0 auto;  /* Center the container */
+    padding: 2rem;
+}
+
+/* Form control styles */
+.form-control {
+    width: 100%;
+    margin-bottom: 1rem;
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .contact-form-container {
+        width: 95%;  /* Slightly wider on mobile */
+        padding: 1rem;
+    }
+}
+
+/* Button styling */
+.btn-send-message {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+/* Ensure proper spacing between form elements */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+/* Text area height */
+textarea.form-control {
+    min-height: 150px;
+}
+
+/* Ensure all navbar elements have the same background in dark mode */
+[data-theme="dark"] .navbar,
+[data-theme="dark"] .navbar-collapse,
+[data-theme="dark"] .navbar > .container,
+[data-theme="dark"] .navbar.scrolled,
+[data-theme="dark"] .custom-navbar {
+    background-color: #1b1a1a !important;
+}
+
+/* Ensure mobile menu also has the same color */
+@media (max-width: 991px) {
+    [data-theme="dark"] .navbar-collapse {
+        background-color: #1b1a1a !important;
+    }
+}
+
+/* Ensure the ENTIRE navbar and all its parts have the same background */
+[data-theme="dark"] body .navbar,
+[data-theme="dark"] body .navbar *,
+[data-theme="dark"] .navbar > .container,
+[data-theme="dark"] .navbar .container-fluid,
+[data-theme="dark"] .navbar-collapse,
+[data-theme="dark"] .navbar-nav,
+[data-theme="dark"] .navbar-toggler,
+[data-theme="dark"] .navbar-brand {
+    background-color: #1b1a1a !important;
+}
+
+/* Remove any background colors from nav items that might show through */
+[data-theme="dark"] .navbar-nav .nav-link,
+[data-theme="dark"] .navbar-nav .nav-item {
+    background-color: #1b1a1a !important;
+}
+
+/* Ensure mobile menu has the same background */
+@media (max-width: 991px) {
+    [data-theme="dark"] .navbar,
+    [data-theme="dark"] .navbar-collapse,
+    [data-theme="dark"] .navbar > .container {
+        background-color: #1b1a1a !important;
+        width: 100vw;
+    }
+}
+
+/* Footer matching color */
+[data-theme="dark"] footer.footer {
+    background-color: #1b1a1a !important;
+}
+
+main {
+    flex: 1;
+}
+
+footer {
+    margin-top: auto;
+}
+
+/* Contact card styles */
+.card-body {
+    border: 2px solid #ffffff;
+    border-radius: 10px;
+    background-color: var(--card-bg);
+    transition: all 0.3s ease;
+}
+
+/* Dark mode specific styles */
+[data-theme="dark"] .card-body {
+    border-color: rgba(255, 255, 255, 0.2); /* Softer white border in dark mode */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Contact info container */
+.contact-info {
+    padding: 1rem;
+}
+
+/* Contact info items */
+.contact-info p {
+    color: var(--text-color);
+}
+
+/* Icons in contact info */
+.contact-info i {
+    color: var(--accent-color);
+    width: 25px;
+}
+
+/* Hover effect */
+.card-body:hover {
+    border-color: #ffffff;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Social media links */
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 35px;
+    height: 35px;
+    margin: 0 15px;
+    color: #ffffff !important;
+    transition: all 0.3s ease;
+    background: none !important; /* Remove background */
+}
+
+/* Social media icons */
+.social-links a i {
+    font-size: 1.2rem;
+}
+
+/* Hover effect */
+.social-links a:hover {
+    transform: translateY(-3px);
+    color: var(--accent-color) !important;
+    background: none !important; /* Ensure background stays removed on hover */
+}
+
+/* Footer text and links */
+footer.footer a,
+footer.footer span,
+footer.footer i,
+footer.footer p {
+    color: #ffffff !important;
+}

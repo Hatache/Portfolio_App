@@ -1,0 +1,657 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saujan Dahal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+    :root {
+        --primary-color: {{ theme.primary_color|default:"#0d6efd" }};
+        --secondary-color: {{ theme.secondary_color|default:"#6c757d" }};
+        --accent-color: {{ theme.accent_color|default:"#240303" }};
+        --bg-color: {{ theme.background_color|default:"#ffffff" }};
+        --section-light: {{ theme.section_bg_light|default:"#f8f9fa" }};
+        --section-dark: {{ theme.section_bg_dark|default:"#212529" }};
+        --text-light: {{ theme.text_color_light|default:"#ffffff" }};
+        --text-dark: {{ theme.text_color_dark|default:"#212529" }};
+        --heading-font: {{ theme.heading_font|default:"'Poppins', sans-serif" }};
+        --body-font: {{ theme.body_font|default:"'Open Sans', sans-serif" }};
+        --heading-size: {{ theme.heading_size|default:"2.5rem" }};
+        --subheading-size: {{ theme.subheading_size|default:"1.8rem" }};
+        --body-size: {{ theme.body_size|default:"1rem" }};
+    }
+
+    body {
+        font-family: var(--body-font);
+        font-size: var(--body-size);
+        color: var(--text-dark);
+        background-color: var(--bg-color);
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: var(--heading-font);
+    }
+
+    h1 { font-size: var(--heading-size); }
+    h2 { font-size: var(--subheading-size); }
+
+    .btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+    }
+
+    .btn-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+    }
+
+    .text-primary {
+        color: var(--primary-color) !important;
+    }
+
+    .bg-primary {
+        background-color: var(--primary-color) !important;
+    }
+
+    .progress-bar {
+        background-color: var(--accent-color);
+    }
+
+    /* Dark mode styles */
+    [data-theme="dark"] {
+        --bg-color: var(--section-dark);
+        --text-color: var(--text-light);
+    }
+
+    /* Navbar Styles */
+    .navbar {
+        padding: 0.5rem 0;
+        background-color: #182247 !important; /* Light mode - match footer color */
+        /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+        min-height: 50px;
+        /* border-bottom: 5px #ffffff; */
+    }
+
+    /* Add custom container style */
+    .section-container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Dark mode styles */
+    [data-theme="dark"] .navbar {
+        background-color: #212529 !important; /* Dark mode - black background */
+    }
+
+    /* Remove any scrolled class styles if they exist */
+    .navbar.scrolled {
+        background-color: inherit !important;
+    }
+
+    .navbar-brand img {
+        height: 40px;
+    }
+
+    .nav-link {
+        color: var(--text-color);
+        font-weight: 500;
+        padding: 0.5rem 1rem !important;
+        transition: color 0.3s ease;
+        font-size: 0.9rem;  /* Slightly smaller font */
+    }
+
+    .nav-link:hover {
+        color: var(--primary-color);
+    }
+
+    .nav-link.active {
+        color: var(--primary-color);
+    }
+
+    /* Profile and Dark Mode */
+    .profile-img img {
+        border: 2px solid var(--primary-color);
+    }
+
+    .dark-mode-toggle .btn {
+        color: var(--text-color);
+        padding: 0.25rem;
+        font-size: 0.9rem;
+    }
+
+    /* Mobile Styles */
+    @media (max-width: 100%) {
+        .navbar-collapse {
+            background-color: #1a2240;
+            padding: 0.5rem;
+            /* border-radius: 8px; */
+            margin-top: 0.5rem;
+            /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
+        }
+
+        .navbar-nav {
+            margin: 0.5rem 0;
+        }
+
+        .nav-link {
+            padding: 0.5rem 0 !important;
+            text-align: center;
+        }
+
+        .dark-mode-toggle {
+            text-align: center;
+            padding-top: 0.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+    }
+
+    /* Animation for menu items */
+    .nav-link {
+        position: relative;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background-color: var(--primary-color);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    /* Hamburger menu icon color */
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255, 255, 255, 0.85)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+    }
+
+    .navbar-toggler {
+        border-color: rgba(255, 255, 255, 0.5) !important;
+    }
+
+    /* Skills Section Styles */
+    .skill-item {
+        padding: 1.5rem;
+        background-color: var(--bg-color);
+        border-radius: 8px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .progress {
+        height: 8px;
+        background-color: #e9ecef;
+        border-radius: 4px;
+        margin-top: 5px;
+        overflow: hidden;
+    }
+
+    .progress-bar {
+        background-color: var(--primary-color);
+        border-radius: 4px;
+        transition: width 0.6s ease;
+    }
+
+    .skill-item span {
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--text-dark);
+    }
+
+    /* Dark mode adjustments for skills */
+    [data-theme="dark"] .skill-item {
+        background-color: var(--section-dark);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    [data-theme="dark"] .skill-item:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="dark"] .progress {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    [data-theme="dark"] .skill-item span {
+        color: var(--text-light);
+    }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="section-container">
+            <!-- Hamburger Menu Button -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Content -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <!-- Navigation Links -->
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'blog_list' %}">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+
+                <!-- Dark Mode Toggle Only -->
+                <div class="dark-mode-toggle">
+                    <button class="btn" id="darkModeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="section-container position-relative">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-3 fw-bold mb-4">Hi, I'm {{ hero.name }}</h1>
+                    <h2 class="h3 mb-4">{{ hero.title }}</h2>
+                    <p class="lead mb-5">{{ hero.description }}</p>
+                    <div class="d-flex">
+                        <a href="#projects" class="btn btn-light btn-lg me-3">View My Work</a>
+                        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Me</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 d-none d-lg-block text-center">
+                    {% if hero.profile_image %}
+                        <img src="{{ hero.profile_image.url }}" alt="Profile" class="img-fluid rounded-circle border border-5 border-white shadow" style="width: 350px; height: 350px; object-fit: cover;">
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="section-container py-5">
+            <div class="row">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <h2 class="section-title">About Me</h2>
+                    <p class="lead">{{ about_me.bio }}</p>
+                    <div class="mt-4">
+                        {% if about_me.resume %}
+                        <a href="{{ about_me.resume.url }}" class="btn btn-primary me-2" download>Download Resume</a>
+                        {% endif %}
+                        <a href="#contact" class="btn btn-outline-secondary">Get In Touch</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <h6 class="fw-bold">Name:</h6>
+                                        <p>{{ about_me.full_name }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <h6 class="fw-bold">Email:</h6>
+                                        <p>{{ about_me.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-3">
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <h6 class="fw-bold">Location:</h6>
+                                        <p>{{ about_me.location }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="mb-3">
+                                        <h6 class="fw-bold">Availability:</h6>
+                                        <p>{{ about_me.availability }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <h6 class="fw-bold mb-3">My Interests:</h6>
+                                <div class="d-flex flex-wrap">
+                                    {% for interest in about_me.get_interests %}
+                                    <span class="badge bg-primary me-2 mb-2 p-2">{{ interest }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5">
+        <div class="section-container py-5">
+            <h2 class="section-title text-center">My Projects</h2>
+            <p class="text-center mb-5">Here are some of my recent works</p>
+    
+            <div class="row g-4">
+                {% for project in myprojects %}
+                <!-- Project 1 -->
+                <div class="col-md-6 col-lg-4">
+                    <div class="project-card">
+                        <img src="{% if project.image %}{{ project.image.url }}{% else %}{% static 'images/default.jpg' %}{% endif %}" class="card-img-top" alt="{{ project.project_title }}">
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.project_title }}</h5>
+                            <p class="card-text">{{ project.project_description }}</p>
+                            <div class="d-flex flex-wrap mb-3">
+                                {% for tech in project.get_technologies %}
+                                    <span class="badge bg-secondary me-1 mb-1">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                            <a href="{{ project.demo_link }}" class="btn btn-sm btn-primary">View Project</a>
+                            <a href="{{ project.git_link }}" class="btn btn-sm btn-outline-secondary ms-2">View Code</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+    
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-primary">View All Projects</a>
+            </div>
+        </div>
+    </section>
+    
+    
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="section-container py-5">
+            <h2 class="section-title text-center">My Skills</h2>
+            <p class="text-center mb-5">Here are some of the technologies I work with</p>
+            
+            <div class="row g-4">
+                {% for category in skill_categories %}
+                <div class="col-md-4">
+                    <div class="skill-item">
+                        <i class="{{ category.icon }} text-primary"></i>
+                        <h4 class="mt-2">{{ category.name }}</h4>
+                        <div class="mt-3">
+                            {% for skill in category.skills.all %}
+                            <div class="mb-3">
+                                <span>{{ skill.name }}</span>
+                                <div class="progress">
+                                    <div class="progress-bar bg-primary" role="progressbar" data-proficiency="{{ skill.proficiency }}"></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-5">
+        <div class="section-container py-5">
+            <h2 class="section-title text-center">Experience & Education</h2>
+            
+            <div class="row">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <h3 class="mb-4">Work Experience</h3>
+                    <div class="timeline">
+                        {% for experience in work_experiences %}
+                        <div class="timeline-item">
+                            <h5>{{ experience.title }}</h5>
+                            <p class="text-muted mb-1">{{ experience.company }} | {{ experience.get_duration }}</p>
+                            <p>{{ experience.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="col-lg-6">
+                    <h3 class="mb-4">Education</h3>
+                    <div class="timeline">
+                        {% for edu in education %}
+                        <div class="timeline-item">
+                            <h5>{{ edu.degree }}</h5>
+                            <p class="text-muted mb-1">{{ edu.institution }} | {{ edu.get_duration }}</p>
+                            <p>{{ edu.description }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="section-container py-5">
+            <h2 class="section-title text-center">Get In Touch</h2>
+            <p class="text-center mb-5">Have a project in mind? Let's work together!</p>
+            
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <div class="card border-0 shadow-lg h-100">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Contact Information</h4>
+                            <div class="contact-info mb-4">
+                                <p class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> 4600,KTM</p>
+                                <p class="mb-2"><i class="fas fa-envelope me-2"></i> Sauj0ndahal@gmail.com</p>
+                                <p class="mb-2"><i class="fas fa-phone me-2"></i> +977 908820012</p>
+                                <p class="mb-2"><i class="fas fa-clock me-2"></i> Mon-Fri: 9:00 AM - 6:00 PM</p>
+                            </div>
+                            <!-- <h5 class="mb-3">Follow Me</h5>
+                            <div class="social-links">
+                                <a href="#"><i class="fab fa-github"></i></a>
+                                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="#"><i class="fab fa-twitter"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-dribbble"></i></a>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-lg">
+                        <div class="card-body p-4">
+                            <h4 class="mb-4">Send Me a Message</h4>
+                            <form action="{% url 'submit_contact' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="name" id="name"  placeholder="Your Name">
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" name="message" id="message" placeholder="Your Message" style="height: 150px"></textarea>
+                                            <label for="message">Your Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-primary btn-lg w-100">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const moonIcon = darkModeToggle.querySelector('i');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Set initial theme
+        if (savedTheme === 'dark' || (!savedTheme && systemDarkMode)) {
+            html.setAttribute('data-theme', 'dark');
+            moonIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+        
+        // Toggle theme function
+        function toggleTheme() {
+            if (html.getAttribute('data-theme') === 'dark') {
+                html.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'light');
+                moonIcon.classList.replace('fa-sun', 'fa-moon');
+                darkModeToggle.style.transform = 'rotate(-180deg)';
+            } else {
+                html.setAttribute('data-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                moonIcon.classList.replace('fa-moon', 'fa-sun');
+                darkModeToggle.style.transform = 'rotate(180deg)';
+            }
+        }
+        
+        // Add click event
+        darkModeToggle.addEventListener('click', toggleTheme);
+        
+        // Add hover animation
+        darkModeToggle.addEventListener('mouseover', function() {
+            moonIcon.style.transform = 'rotate(45deg) scale(1.1)';
+        });
+        
+        darkModeToggle.addEventListener('mouseout', function() {
+            moonIcon.style.transform = 'rotate(0deg) scale(1)';
+        });
+
+        // Get navbar elements
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarCollapse = document.querySelector('.navbar-collapse');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        // Close menu when clicking nav links on mobile
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 992) {
+                    navbarCollapse.classList.remove('show');
+                }
+            });
+
+            // Active link handling
+            link.addEventListener('click', function(e) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const isClickInside = navbarCollapse.contains(event.target) || 
+                                navbarToggler.contains(event.target);
+            
+            if (!isClickInside && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
+
+        document.querySelectorAll('.progress-bar').forEach(bar => {
+            const proficiency = bar.getAttribute('data-proficiency');
+            bar.style.width = proficiency + '%';
+        });
+    });
+  </script>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="section-container">
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
+                    <span>&copy; 2025 Saujan Dahal®. All Rights Reserved.</span>
+                </div>
+                <div class="col-md-4 text-center mb-3 mb-md-0">
+                    <div class="social-links">
+                        <a href="https://facebook.com" class="me-3" target="_blank">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://twitter.com/saujan dahal" class="me-3" target="_blank">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com" class="me-3" target="_blank">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="https://linkedin.com/saujan-dahal" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-center text-md-end">
+                    <a href="#" class="me-3">Privacy Policy</a>
+                    <a href="#">Terms of Use</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Font Awesome Icons (Make sure you have Font Awesome linked in your project) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    

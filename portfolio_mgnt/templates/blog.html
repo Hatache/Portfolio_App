@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Blog - Saujan Dahal{% endblock %}
+
+{% block extra_css %}
+<style>
+.blog-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+    color: white;
+    padding: 5rem 0;
+    margin-top: -60px;
+}
+
+.blog-header h1 {
+    color: white;
+}
+
+.blog-header p {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.hover-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.card-title {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.card-footer {
+    background: transparent;
+    padding: 1rem;
+}
+
+.btn-primary {
+    padding: 0.5rem 2rem;
+    border-radius: 25px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Blog Header Section -->
+<section class="blog-header">
+    <div class="container">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 fw-bold mb-4">My Blog</h1>
+                <p class="lead">Thoughts, tutorials, and insights about web development and technology</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Posts Section -->
+<section class="blog-posts py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for post in blog_posts %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100 shadow-sm hover-card">
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <small class="text-muted">
+                                <i class="far fa-clock me-1"></i>{{ post.read_time }} min read
+                            </small>
+                            <small class="text-muted">
+                                <i class="far fa-calendar-alt me-1"></i>{{ post.created_at|date:"M d, Y" }}
+                            </small>
+                        </div>
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text text-muted">{{ post.summary|truncatewords:25 }}</p>
+                    </div>
+                    
+                    <div class="card-footer bg-transparent border-0 pt-0">
+                        <a href="{% url 'blog_detail' post.slug %}" class="btn btn-primary w-100">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p class="lead text-muted">No blog posts available yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %} 

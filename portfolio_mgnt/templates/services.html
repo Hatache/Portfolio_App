@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Services</title>
+</head>
+<body>
+    <h1>Our Services</h1>
+    <ul>
+        {% for service in services %}
+            <li>{{ service.name }} - ${{ service.price }}</li>
+            
+        {% endfor %}
+    </ul>
+</body>
+</html>
